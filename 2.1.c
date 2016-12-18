@@ -271,7 +271,7 @@ int main(int argc, char const *argv[]) {
         ++ row;
     }
 
-    pause();
+    // pause();
     // pause
     // while (1) {
     //
