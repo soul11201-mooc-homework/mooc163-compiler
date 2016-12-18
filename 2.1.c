@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define DEBUG  1
+
+#ifndef DEBUG
+#define DEBUG   0
+#endif
+
+
 typedef enum {
     IF,
     LPAREN,
@@ -116,7 +124,9 @@ int c_str_cmp(const char * a,int start,int end,const char * b)
 
 int dfa(char * str, int state )
 {
-    if(str == "\0" || str == "")
+    // if(DEBUG) printf("read input char ascii int: %d\n",str[0]);
+    // if(str == "\0" || str == "")
+    if(str[0] == '\0')
     {
         return state;
     }
@@ -222,18 +232,27 @@ int main(int argc, char const *argv[]) {
 
         str_p_t temp_pos = {0,0};
         int _temp_len = strlen(temp);
-        printf("%d\n",_temp_len );
+        // printf("%d\n",_temp_len);
         while (temp_pos.end < _temp_len)
         {
 
             temp_pos = get_nex_str(temp,temp_pos.end);
-            printf("%d--%d\n",temp_pos.start,temp_pos.end);
 
-
+            // if(DEBUG) printf("%d--%d\n",temp_pos.start,temp_pos.end);
 
             temp[temp_pos.end] = '\0';
 
             char * _str = temp + temp_pos.start;
+            // if(DEBUG){
+
+            // }
+
+            // #if DEBUG
+            // for (size_t i = 0; i <= temp_pos.end-temp_pos.start; i++) {
+            //     /* code */
+            //     printf("%d\n",_str[i]);
+            // }
+            // #endif
             fa_state_t state = dfa(_str, STATE_START);
 
             switch (state) {
@@ -252,7 +271,7 @@ int main(int argc, char const *argv[]) {
         ++ row;
     }
 
-    // pause();
+    pause();
     // pause
     // while (1) {
     //
