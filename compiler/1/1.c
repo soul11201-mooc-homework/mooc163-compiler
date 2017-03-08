@@ -173,6 +173,34 @@ void compile (struct Exp_t *exp)
   }
 }
 
+//////////////////////////////////////////
+//opt ast
+
+void opt(struct Exp_t *exp)
+{
+
+  if(exp->kind == EXP_SUM)
+  {
+    struct Exp_Sum *p = (struct Exp_Sum *)exp;
+
+    opt(p->left);
+    opt(p->right);
+
+   
+
+    if(p->left->kind == EXP_INT && p->right->kind == EXP_INT){
+      struct Exp_Int * left =( struct Exp_Int * )p->left; 
+      struct Exp_Int * right =( struct Exp_Int * )p->right; 
+      
+      int i = right->i + left->i;
+      p->kind = EXP_INT;
+
+      ((struct Exp_Int *)p)->i = i;
+    }
+    // printf("%d\n", p->kind);
+  }
+}
+
 //////////////////////////////////////////////////
 // program entry
 int main()
@@ -190,6 +218,8 @@ int main()
   // print out this tree:
   printf ("the expression is:\n");
   Exp_print (exp);
+
+  opt(exp);
   // compile this tree to Stack machine instructions
   compile (exp);
 
