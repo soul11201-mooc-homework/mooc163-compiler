@@ -31,7 +31,7 @@ struct Exp_Sum
 // "constructors"
 struct Exp_t *Exp_Int_new (int i)
 {
-  struct Exp_Int *p = malloc (sizeof(*p));
+  struct Exp_Int *p = (struct Exp_Int *)malloc (sizeof(*p));
   p->kind = EXP_INT;
   p->i = i;
   return (struct Exp_t *)p;
@@ -39,7 +39,7 @@ struct Exp_t *Exp_Int_new (int i)
 
 struct Exp_t *Exp_Sum_new (struct Exp_t *left, struct Exp_t *right)
 {
-  struct Exp_Sum *p = malloc (sizeof(*p));
+  struct Exp_Sum *p = (struct Exp_Sum *)malloc (sizeof(*p));
   p->kind = EXP_SUM;
   p->left = left;
   p->right = right;
@@ -89,14 +89,14 @@ struct Stack_Push
 // "constructors"
 struct Stack_t *Stack_Add_new ()
 {
-  struct Stack_Add *p = malloc (sizeof(*p));
+  struct Stack_Add *p = (struct Stack_Add *)malloc (sizeof(*p));
   p->kind = STACK_ADD;
   return (struct Stack_t *)p;
 }
 
 struct Stack_t *Stack_Push_new (int i)
 {
-  struct Stack_Push *p = malloc (sizeof(*p));
+  struct Stack_Push *p = (struct Stack_Push *)malloc (sizeof(*p));
   p->kind = STACK_PUSH;
   p->i = i;
   return (struct Stack_t *)p;
@@ -111,7 +111,7 @@ struct List_t
 
 struct List_t *List_new (struct Stack_t *instr, struct List_t *next)
 {
-  struct List_t *p = malloc (sizeof (*p));
+  struct List_t *p = (struct List_t *)malloc (sizeof (*p));
   p->instr = instr;
   p->next = next;
   return p;
@@ -120,7 +120,27 @@ struct List_t *List_new (struct Stack_t *instr, struct List_t *next)
 // "printer"
 void List_reverse_print (struct List_t *list)
 {
-  TODO();
+  // TODO();
+  if(list == NULL){
+    printf("\n\nthe Stack instructons: \n");
+    return;
+  }else{
+     List_reverse_print(list->next);
+  }
+ 
+
+  switch(list->instr->kind){
+    case STACK_PUSH:{
+      struct Stack_Push *p = (struct Stack_Push *)list->instr;
+      printf("push %d\n",p->i);
+      break;
+    }
+    case STACK_ADD:{
+      printf("add\n");
+      break;
+    }
+  }
+
 }
 
 //////////////////////////////////////////////////
@@ -141,7 +161,11 @@ void compile (struct Exp_t *exp)
     break;
   }
   case EXP_SUM:{
-    TODO();
+    struct Exp_Sum * p = (struct Exp_Sum *) exp;
+    compile(p->left);
+    compile(p->right);
+    emit(Stack_Add_new());
+    // TODO();
     break;
   }
   default:
