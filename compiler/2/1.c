@@ -12,7 +12,7 @@ typedef enum {
 	UNKNOWN,
     IF,
     LPAREN,
-    INTEGER,
+    NUM,
     ID,
 }TokenKind;
 
@@ -46,6 +46,7 @@ int hash(const char * s)
 }
 
 void Token_print(Token * t);
+void * generate_token_type(Token * t);
 
 const char *  TokenKind_2_str(TokenKind k)
 {
@@ -57,13 +58,13 @@ const char *  TokenKind_2_str(TokenKind k)
 		case IF:{
 			return "IF";
 		}
-		case     LPAREN:{
+		case LPAREN:{
 			return "LPAREN";
 		}
-		case     INTEGER:{
-			return "INTEGER";
+		case NUM:{
+			return "NUM";
 		}
-		case     ID:{
+		case ID:{
 			return "ID";
 		}
 		default:
@@ -71,10 +72,10 @@ const char *  TokenKind_2_str(TokenKind k)
 	}
 }
 
-void Token_add(const char * str,int len,int row,int vol,TokenKind kind)
+void Token_add(const char * str,int len,int row,int vol)
 {
 
-	token_list[token_num].kind = kind;
+	
 	token_list[token_num].row = row;
 	token_list[token_num].vol = vol;
 	token_list[token_num].len = len;
@@ -83,15 +84,8 @@ void Token_add(const char * str,int len,int row,int vol,TokenKind kind)
 	strncpy(token_list[token_num].str_val,str,len);
 	token_list[token_num].str_val[len] = '\0';
 	
-	
+	generate_token_type(&token_list[token_num]);
 	Token_print(&token_list[token_num]);
-	// printf("add token ================>>:\t %s \t@len:%d pos:(%d,%d) hashcode:%d\n", 
-	// 	token_list[token_num].str_val,
-	// 	len,
-	// 	row,
-	// 	vol,
-	// 	hash(token_list[token_num].str_val)
-	// );
 
 	token_num ++;
 }
@@ -99,7 +93,7 @@ void Token_add(const char * str,int len,int row,int vol,TokenKind kind)
 void Token_print(Token * t)
 {
 
-	printf("add token ================>>:\t %s \t@len:%d pos:(%d,%d) hashcode: %d TokenKind: %s\n", 
+	printf(" %s \t@len:%d pos:(%d,%d) hashcode: %d TokenKind: %s\n", 
 		t->str_val,
 		t->len,
 		t->row,
@@ -131,7 +125,7 @@ void * generate_token(const char * str,int row)
 			++ offset;
 		}
 
-		Token_add(str + vol , offset - vol , row, vol + 1,UNKNOWN);
+		Token_add(str + vol , offset - vol , row, vol + 1);
 	}
 
 	printf("----------------------generate_token end---------------------------------------\n\n\n\n");
@@ -140,27 +134,32 @@ void * generate_token(const char * str,int row)
 
 
 
-void * generate_token_type()
+void * generate_token_type(Token * t)
 {
-	char * t;
-	for (int i = 0; i < token_num; ++i)
-	{
-		if (token_list[i].kind != UNKNOWN)
-		{
-			continue;
-		}
+	t->kind = ID;
 
-		t = token_list[i].str_val;
-		if (strncmp(t,"if",2))
+	char * s = t->str_val;
+	if(strcmp(s, "if") == 0)
+	{
+		t->kind = IF;
+	}else{
+		int i = 0;
+		while(isdigit(s[i++]));
+		if(i -1  == t->len)
 		{
-			token_list[i].kind = IF;
+			t->kind = NUM;
 		}
-		Token_print(&token_list[i]);
-		// else
 	}
 }
 
+void Token_traval()
+{
 
+	for (int i = 0; i < token_num; ++i)
+	{
+		Token_print(&token_list[i]);
+	}
+}
 
 int main(int argc, char const *argv[]) {
     char temp[BUFF_SIZE];
@@ -176,7 +175,6 @@ int main(int argc, char const *argv[]) {
     	++i;
     }
 
-    generate_token_type();
-
+    Token_traval();
     return 0;
 }
