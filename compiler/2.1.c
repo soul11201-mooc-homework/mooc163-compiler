@@ -253,7 +253,7 @@ int main(int argc, char const *argv[]) {
             //     printf("%d\n",_str[i]);
             // }
             // #endif
-            fa_state_t state = dfa(_str, STATE_START);
+            fa_state_t state = (fa_state_t)dfa(_str, STATE_START);
 
             switch (state) {
                 case STATE_DEFAULT:
