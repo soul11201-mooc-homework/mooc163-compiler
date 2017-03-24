@@ -118,7 +118,10 @@ typedef struct
 G_SelectRe_t * build_obj_of_G_SelectRe_t(G_Re_t* e1,G_Re_t * e2)
 {
 
+    G_SelectRe_t * g = (G_SelectRe_t *) malloc(sizeof(G_SelectRe_t));
 
+    
+    
 }
 
 
@@ -149,11 +152,14 @@ G_ClosureRe_t * build_obj_of_G_ClosureRe_t(G_Re_t * e1)
    特殊符号  ( )  |   *
 */
 
-G_Re_t * build_nfa_with_Lpara(const char * re,int len)
-{
+// G_Re_t * build_nfa_with_Lpara(const char * re,int len)
+// {
 
-}
+// }
 
+
+// G_Re_t * Re_Stack[100];
+// int Re_Stack_index = 0;
 
 G_Re_t *  build_nfa(const char * re,int len)
 {
@@ -224,12 +230,43 @@ G_Re_t *  build_nfa(const char * re,int len)
 
     //     }            
     // }
+    // char c;
+    // char stack[100];
+    // int top = 0;
+    // char stack_top_ele;
+    // for(int i = len -1 ; ~ i; --i)
+    // {
+    //     c = re[i];
+
+    //     if(c != '(' && c != ')' && c != '|' && c != '*')
+    //     {
+    //         if(top > 0 ){
+    //             stack_top_ele = stack[top - 1];
+    //         }else{
+                
+    //             Re_Stack[Re_Stack_index ++] = (G_Re_t*)build_obj_of_G_BaseRe(c);
+    //         }
+
+    //     }else{
+
+    //     }
+    // }
 
 }
 
 int main(int argc, char const *argv[])
 {
     char  re[] = "a(b|c)*";
-    G_Re_t * g = build_nfa(re, strlen(re));
+
+
+    // G_Re_t * g = build_nfa(re, strlen(re));
+    // 
+    // 
+    G_Re_t * g =(G_Re_t *) build_obj_of_G_ConcatRe_t(
+                    (G_Re_t *)build_obj_of_G_BaseRe('a'),
+                    (G_Re_t *)build_obj_of_G_ClosureRe_t(
+                            (G_Re_t *)build_obj_of_G_SelectRe_t(
+                                (G_Re_t *)build_obj_of_G_BaseRe('b'),
+                                (G_Re_t *)build_obj_of_G_BaseRe('c'))));
     return 0;
 }
