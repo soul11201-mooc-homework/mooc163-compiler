@@ -2,13 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct _Node 
+struct _Node 
 {
     int id;
     char re_c;
     struct _Node  * to;
     // struct _Node  * from;
-}Node;
+};
+
+typedef struct _Node  Node;
 
 int node_global_id = 0;
 
@@ -27,7 +29,7 @@ typedef struct{
 
 typedef struct 
 {
-    Re_t kind
+    Re_t kind;
     Node state[2];
     // char re_c[2];
 }G_BaseRe_t;
@@ -40,12 +42,12 @@ G_BaseRe_t * build_obj_of_G_BaseRe(char c)
 
     // g->state[0]->id = 0;
     // g->state[0]->from = NULL;
-    g->state[0]->to =     &(g->state[1])
-    g->state[0]->re_c = c;
+    g->state[0].to   = &(g->state[1]);
+    g->state[0].re_c =  c;
 
     // g->state[1]->id = 1;
     // g->state[1]->from =  &(g->state[0]);
-    g->state[1]->to =   NULL;
+    g->state[1].to =   NULL;
 
     // g->re_c[0] = c;
     // g->re_c[1] = '\0';
@@ -74,20 +76,20 @@ G_ConcatRe_t  * build_obj_of_G_ConcatRe_t(G_Re_t * e1,G_Re_t * e2)
 
     g->kind = RE_CONCAT;
 
-    g->state[0]->to = &(e1->state[0]);
-    g->state[0]->re_c = '\0';
+    g->state[0].to = &(e1->state[0]);
+    g->state[0].re_c = '\0';
 
-    g->state[1]->to = null;
+    g->state[1].to = NULL;
 
-    g->state[2]->to = &(g->state[3])
-    g->state[2]->re_c = '\0';
+    g->state[2].to = &(g->state[3]);
+    g->state[2].re_c = '\0';
 
-    g->state[3]->to = &(e2->state[0])
-    g->state[3]->re_c = '\0';
+    g->state[3].to = &(e2->state[0]);
+    g->state[3].re_c = '\0';
 
 
-    e1->state[1]->to = &(g->state[2])
-    e2->state[1]->to = &(g->state[0])
+    e1->state[1].to = &(g->state[2]);
+    e2->state[1].to = &(g->state[0]);
 
     return g;
     // e1->state[1]->to =  &(g->state[2]);
@@ -113,6 +115,14 @@ typedef struct
     Node state[4];
 }G_SelectRe_t;
 
+G_SelectRe_t * build_obj_of_G_SelectRe_t(G_Re_t* e1,G_Re_t * e2)
+{
+
+
+}
+
+
+
 /*           
                --<--<--
               /        \
@@ -130,79 +140,96 @@ typedef struct
     Node state[6];
 }G_ClosureRe_t;
 
+G_ClosureRe_t * build_obj_of_G_ClosureRe_t(G_Re_t * e1)
+{
+
+}
 
 /*
    特殊符号  ( )  |   *
 */
 
+G_Re_t * build_nfa_with_Lpara(const char * re,int len)
+{
+
+}
+
+
 G_Re_t *  build_nfa(const char * re,int len)
 {
-    char lp = 0;
-    char c = re[0];
+   
+    // char c = re[0];
+    // int index = 1;
+    // char next_c = re[index];
+    // G_Re_t * g;
 
-    switch(c)
-    {
-        case '(':
-        {
-            ++ lp;
-            int i = 1;
-            for( i = 1;i< len && lp != 0;++i)
-            {
-                switch(re[i])
-                {
-                    case ')':
-                        -- lp;
-                        break;
-                    case '(':
-                        ++ lp;
-                        break;
-                }
-            }
-            build_nfa(re + 1,  i - 1);
-            break;
-        }
-        case '*':
-        {
-            break;
-        }
-        case '|':
-        {
-            break;
-        }
-        default:
-        {
-            G_Re_t * g= build_nfa(re + 1,len - 1)
-            // switch(g->kind){
-            //     case RE_BASE:{
-            //         g = (G_BaseRe_t *)g
-            //         break;
-            //     }
-            //     case RE_CONCAT:{
-            //         g = ()g
-            //         break;
-            //     }
-            //     case RE_CLOSURE:{
-            //         g = ()g
-            //         break;
-            //     }
-            //     case RE_SELECT:{
-            //         g = ()g
-            //         break;
-            //     }
+    // if(c != '(' && c != ')' && c != '|' && c != '*')
+    // {
+    //     // 字符集
+    //     g = (G_Re_t *) build_obj_of_G_BaseRe(c);
 
-            // }
-            G_BaseRe_t * b = build_obj_of_G_BaseRe(c);
 
-            return (G_Re_t *) build_obj_of_G_ConcatRe_t((G_Re_t * )b,g)
-        }
-   }
+    //     //和下一个字符左结合成一个整体
+    //     if(next_c == '*')
+    //     {
+    //         g = build_obj_of_G_ClosureRe_t(g);
+    //         ++ index;
+    //         next_c = re[index];
+    //     }
+
+    //     // 右结合没有问题
+    //     if(next_c != '|' && next_c != '*')
+    //     {
+    //         return (G_Re_t *) build_obj_of_G_ConcatRe_t(g,build_nfa(re + index, len - index )) ;
+    //     }
+
+    // }
+    // else if(c == '(')
+    // {
+    //     int lp = 1;
+    //     int i =0
+
+    //     for(i = 1;i < len && lp != 0 ; ++i)
+    //     {
+    //         switch(re[i])
+    //         {
+    //             case ')':
+    //                 -- lp;
+    //                 break;
+    //             case '(':
+    //                 ++ lp;
+    //                 break;
+    //         }
+    //     }
+
+    //     g = build_nfa(re + 1, len - 2);
+
+    
+    //     next_c = re[i+1]
+    
+    //     if(next_c == '|')
+    //     {
+    //         return  (G_Re_t *)  build_obj_of_G_SelectRe_t(g,build_nfa(re + 1,len - 1));
+    //     }
+    //     else if (next_c == '*')
+    //     {
+    //         g =   (G_Re_t *) build_obj_of_G_ClosureRe_t(g);
+    //     }
+
+    // }
+    // else if(c == '|')
+    // {
+    //     if(c != '(' && c != ')' && c != '|' && c != '*')
+    //     {
+
+    //     }            
+    // }
+
 }
 
 int main(int argc, char const *argv[])
 {
-    char * re = "a(b|c)*";
+    char  re[] = "a(b|c)*";
     G_Re_t * g = build_nfa(re, strlen(re));
-
-    
     return 0;
 }
