@@ -92,10 +92,18 @@ void Nfa_print (Nfa_t nfa)
   while (nodes){
     Edge_t edges = nodes->edges;
     while (edges){
+#ifndef GRAPHVIZ
       printf ("%d ----(%d)----> %d\n"
               , edges->from->num
               , edges->c
               , edges->to->num);
+#else
+      printf ("%d -> %d [label = \"%d\"];\n"
+              , edges->from->num
+              , edges->to->num
+              , edges->c
+              );
+#endif
       edges = edges->next;
     }
     nodes = nodes->next;
