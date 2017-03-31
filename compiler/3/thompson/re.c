@@ -123,7 +123,22 @@ static Nfa_t Re_thompsonDoit (Nfa_t nfa,Re_t e)
     break;
   }
   case RE_KIND_ALT:{
-    TODO();
+    // TODO()
+    int start = nextNum();
+    int accept = nextNum();
+
+    Re_Alt_t p = (Re_Alt_t) e;
+    Re_thompsonDoit(nfa,p->left);
+    Nfa_addEdge(nfa,start,nfa->start,EPS);
+    Nfa_addEdge(nfa,nfa->accept,accept,EPS);
+
+    Re_thompsonDoit(nfa,p->right);
+    Nfa_addEdge(nfa,start,nfa->start,EPS);
+    Nfa_addEdge(nfa,nfa->accept,accept,EPS);
+
+    nfa->accept = accept;
+    nfa->start = start;
+
     break;
   }
   case RE_KIND_CONCAT:{
@@ -138,7 +153,20 @@ static Nfa_t Re_thompsonDoit (Nfa_t nfa,Re_t e)
     break;
   }
   case RE_KIND_CLOSURE:{
-    TODO();
+    Re_Closure_t p = (Re_Closure_t)e;
+    int start = nextNum();
+    int accept = nextNum();
+    
+    Re_thompsonDoit(nfa,p->exp);
+
+    Nfa_addEdge(nfa,start,accept,EPS);
+    Nfa_addEdge(nfa,start,nfa->start,EPS);
+    Nfa_addEdge(nfa,nfa->accept,accept,EPS);
+    Nfa_addEdge(nfa,nfa->accept,nfa->start,EPS);
+
+    nfa->start = start;
+    nfa->accept = accept;
+    // TODO()
     break;
   }
   default:
