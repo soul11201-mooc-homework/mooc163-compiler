@@ -11,11 +11,12 @@
 很多工具都可以在这里找到 https://sourceforge.net/projects/gnuwin32/
 
 
-bison 
-    - 下载 http://staff.ustc.edu.cn/~bjhua/mooc/bison.exe
-flex 
-    - 下载 http://gnuwin32.sourceforge.net/downlinks/flex.php 
-    - 项目主页 http://gnuwin32.sourceforge.net/packages/flex.htm
+bison
+- 下载 http://staff.ustc.edu.cn/~bjhua/mooc/bison.exe
+
+flex
+- 下载 http://gnuwin32.sourceforge.net/downlinks/flex.php 
+- 项目主页 http://gnuwin32.sourceforge.net/packages/flex.htm
 
     注意：1。安装目录不能包含空格汉字等特殊字符；2。安装完成后把安装目录加到环境变量中。（嘿嘿copy）
 
