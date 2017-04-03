@@ -22,9 +22,8 @@ flex
 
 
 ## 参考文章
-http://pandolia.net/tinyc/ch13_bison.html
-http://coolshell.cn/articles/1547.html
-
-https://www.google.com.hk/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=bison+%E6%80%8E%E4%B9%88%E7%94%A8&*
+- http://pandolia.net/tinyc/ch13_bison.html
+- http://coolshell.cn/articles/1547.html
+- https://www.google.com.hk/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=bison+%E6%80%8E%E4%B9%88%E7%94%A8&*
 
 
