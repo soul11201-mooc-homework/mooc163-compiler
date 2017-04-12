@@ -184,35 +184,92 @@ void compile (struct Exp_t *exp)
 
 void opt(struct Exp_t *exp)
 {
-    Exp_Add p;
-
     switch(exp->kind)
     {
         case EXP_ADD:
+        {
+            Exp_Add p = (Exp_Add )exp;
+            opt(p->left);
+            opt(p->right);
+
+           
+
+            if(p->left->kind == EXP_INT && p->right->kind == EXP_INT){
+              struct Exp_Int * left =( struct Exp_Int * )p->left; 
+              struct Exp_Int * right =( struct Exp_Int * )p->right; 
+              
+              int i = right->n + left->n;
+              p->kind = EXP_INT;
+
+              ((struct Exp_Int *)p)->n = i;
+            }
+
+        }
+            break;
         case EXP_DIV:
-        case EXP_TIMES:
+        {
+            Exp_Div p = (Exp_Div )exp;
+            opt(p->left);
+            opt(p->right);
+
+           
+
+            if(p->left->kind == EXP_INT && p->right->kind == EXP_INT){
+              struct Exp_Int * left =( struct Exp_Int * )p->left; 
+              struct Exp_Int * right =( struct Exp_Int * )p->right; 
+              
+              int i = left->n / right->n;
+              p->kind = EXP_INT;
+
+              ((struct Exp_Int *)p)->n = i;
+            }
+
+        }
+            break;
+        case EXP_TIMES:  
+        {
+            Exp_Times p = (Exp_Times )exp;
+            opt(p->left);
+            opt(p->right);
+
+           
+
+            if(p->left->kind == EXP_INT && p->right->kind == EXP_INT){
+              struct Exp_Int * left =( struct Exp_Int * )p->left; 
+              struct Exp_Int * right =( struct Exp_Int * )p->right; 
+              
+              int i = right->n * left->n;
+              p->kind = EXP_INT;
+
+              ((struct Exp_Int *)p)->n = i;
+            }
+        }
+            break;
         case EXP_MINUS:
-            p = (Exp_Add )exp;
+        {
+            Exp_Minus p = (Exp_Minus )exp;
+            opt(p->left);
+            opt(p->right);
+
+           
+
+            if(p->left->kind == EXP_INT && p->right->kind == EXP_INT){
+              struct Exp_Int * left =( struct Exp_Int * )p->left; 
+              struct Exp_Int * right =( struct Exp_Int * )p->right; 
+              
+              int i = left->n - right->n;
+              p->kind = EXP_INT;
+
+              ((struct Exp_Int *)p)->n = i;
+            }
+
+        }
             break;
         default:
             return;
     };
 
-    opt(p->left);
-    opt(p->right);
-
    
-
-    if(p->left->kind == EXP_INT && p->right->kind == EXP_INT){
-      struct Exp_Int * left =( struct Exp_Int * )p->left; 
-      struct Exp_Int * right =( struct Exp_Int * )p->right; 
-      
-      int i = right->n + left->n;
-      p->kind = EXP_INT;
-
-      ((struct Exp_Int *)p)->n = i;
-    }
-
 }
 
 //////////////////////////////////////////////////
@@ -228,8 +285,11 @@ int main()
   //        2   3
   yyparse();
   Exp_print (tree);
+  
+#ifdef OPT
+  opt(tree);
+#endif
 
-  // opt(tree);
   // compile this tree to Stack machine instructions
   compile (tree);
 
