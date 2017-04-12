@@ -1,4 +1,9 @@
-## 执行
+有一个`exp.out`的文件输出，是bison输出的 LR 状态机转换表示
+
+
+## [作业1 答案]()
+
+https://github.com/noname007/mooc163-compiler/compare/79e0a1cfb6731cac62ef3eb8ac2c69ae23412dc6...fe4ae608047ecb8492f4137f6abc55625bf02f18
 
     make
 
@@ -6,13 +11,11 @@
     
     ((((2) - (3)) * (4)) - (((3) + (5)) / (5))) - (1)
 
-还会有一个`exp.out`的文件输出，是bison输出的 LR 状态机转换表示
 
 
-## [作业1 答案](https://github.com/noname007/mooc163-compiler/compare/79e0a1cfb6731cac62ef3eb8ac2c69ae23412dc6...fe4ae608047ecb8492f4137f6abc55625bf02f18)
+## [作业2 答案]()
 
-
-## [作业2 答案](https://github.com/noname007/mooc163-compiler/compare/83285ca2c5ad09f93cceb98e7c8dff2cf0f0f81c...dc9611a44ceff8234be8d585470f5b86b9fe9a9f)
+https://github.com/noname007/mooc163-compiler/compare/83285ca2c5ad09f93cceb98e7c8dff2cf0f0f81c...dc9611a44ceff8234be8d585470f5b86b9fe9a9f
     
 
 
