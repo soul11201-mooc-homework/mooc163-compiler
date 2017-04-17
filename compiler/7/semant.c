@@ -70,7 +70,28 @@ Type_t check_exp (Exp_t exp)
 // Your job:
 void check_stm (Stm_t stm)
 {
-  TODO();
+  // TODO();
+  switch (stm->kind){
+    case STM_ASSIGN:
+    {
+      Stm_Assign p = (Stm_Assign) stm;
+      if(Table_lookup(p->id) == -1)
+      {
+        fprintf(stderr, "Error: the variable "
+              " \"%s\" hasn't declared",p->id);
+        exit(0);
+      }
+    }
+      break;
+    case STM_PRINTI:{
+
+    }
+      break;
+    case STM_PRINTB:{
+
+    }
+      break;
+  }
 }
 
 void check_stms(List_t stms)
