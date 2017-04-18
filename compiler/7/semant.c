@@ -61,7 +61,117 @@ void check_decs(List_t decs)
 // Your job:
 Type_t check_exp (Exp_t exp)
 {
-  TODO();
+  // TODO();
+  switch(exp->kind)
+  {
+    case EXP_INT:
+        return TYPE_INT;
+    case EXP_TRUE:
+        return TYPE_BOOL;
+    case EXP_FALSE: 
+        return TYPE_BOOL;
+    case EXP_ADD:{
+      Exp_Add p = (Exp_Add) exp;
+      
+      if(check_exp(p->left) != TYPE_INT || check_exp(p->right) != TYPE_INT)
+      {
+      
+        fprintf(stderr, "+ add type mismatch\n");
+        exit(0);
+      
+      } else {
+        return TYPE_INT;
+      }
+    }
+      break;
+    case EXP_ID:{
+      Exp_Id p = (Exp_Id) exp;
+      
+      Type_t t =  Table_lookup(p->id);
+      if(t == -1)
+      {
+          fprintf(stderr, "Error: the variable "
+              " \"%s\" hasn't declared",p->id);
+          exit(0);
+      }
+
+      return t;
+
+    }
+      break;
+
+    case EXP_SUB:{
+      Exp_Sub p = (Exp_Sub) exp;
+      
+      if(check_exp(p->left) != TYPE_INT || check_exp(p->right) != TYPE_INT)
+      {
+      
+        fprintf(stderr, "- type mismatch\n");
+        exit(0);
+      
+      } else {
+        return TYPE_INT;
+      }
+    }
+      break;
+    case EXP_TIMES:{
+      Exp_Times p = (Exp_Times) exp;
+      
+      if(check_exp(p->left) != TYPE_INT || check_exp(p->right) != TYPE_INT)
+      {
+      
+        fprintf(stderr, "* type mismatch\n");
+        exit(0);
+      
+      } else {
+        return TYPE_INT;
+      }
+    }
+      break;
+    case EXP_DIVIDE:{
+      Exp_Divide p = (Exp_Divide) exp;
+      
+      if(check_exp(p->left) != TYPE_INT || check_exp(p->right) != TYPE_INT)
+      {
+      
+        fprintf(stderr, "/ type mismatch\n");
+        exit(0);
+      
+      } else {
+        return TYPE_INT;
+      }
+    }
+      break;
+    case EXP_AND:{
+      Exp_And p = (Exp_And) exp;
+      
+      if(check_exp(p->left) != TYPE_BOOL || check_exp(p->right) != TYPE_BOOL)
+      {
+      
+        fprintf(stderr, "&& type mismatch\n");
+        exit(0);
+      
+      } else {
+        return TYPE_BOOL;
+      }
+    }
+      break;
+    case EXP_OR:{
+      Exp_Or p = (Exp_Or) exp;
+      
+      if(check_exp(p->left) != TYPE_BOOL || check_exp(p->right) != TYPE_BOOL)
+      {
+      
+        fprintf(stderr, " || type mismatch\n");
+        exit(0);
+      
+      } else {
+        return TYPE_BOOL;
+      }
+    }
+      break;
+
+  }
 }
 
 ////////////////////////////////////////
@@ -75,20 +185,44 @@ void check_stm (Stm_t stm)
     case STM_ASSIGN:
     {
       Stm_Assign p = (Stm_Assign) stm;
-      if(Table_lookup(p->id) == -1)
+      
+      Type_t id_type;
+      id_type = Table_lookup(p->id);
+
+      if(id_type == -1)
       {
         fprintf(stderr, "Error: the variable "
               " \"%s\" hasn't declared",p->id);
         exit(0);
       }
+      // printf("%d %s\n",id_type,p->id ); 
+      if(id_type != check_exp(p->exp))
+      {
+        Exp_print(p->exp);
+        fprintf(stderr, "= type mismatch\n");
+        exit(0);
+      }
+
     }
       break;
     case STM_PRINTI:{
-
+      Stm_Printi p = (Stm_Printi) stm;
+      if(check_exp(p->exp) != TYPE_INT)
+      {
+          Exp_print(p->exp);
+          fprintf(stderr, "printi type mismatch\n");
+          exit(0);
+      }
     }
       break;
     case STM_PRINTB:{
-
+      Stm_Printb p = (Stm_Printb) stm;
+      if(check_exp(p->exp) != TYPE_BOOL)
+      {
+          Exp_print(p->exp);
+          fprintf(stderr, "----->printb type mismatch\n");
+          exit(0);
+      }
     }
       break;
   }
@@ -98,6 +232,8 @@ void check_stms(List_t stms)
 {
   while (stms){
     Stm_t s = (Stm_t)stms->data;
+    Stm_print(s);
+    printf("\n");
     check_stm(s);
     stms = stms->next;
   }
