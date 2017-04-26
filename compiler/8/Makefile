@@ -6,7 +6,7 @@ a.out: c--.tab.o lex.yy.o ast.o list.o semant.o stack-machine.o gen-stack.o stac
 	$(CC) lex.yy.o c--.tab.o ast.o list.o semant.o stack-machine.o gen-stack.o stack2x86.o main.o
 
 c--.tab.c: c--.y
-	$(YACC) -d c--.y
+	sh -c "$(YACC) -d c--.y"
 
 c--.tab.o: c--.tab.c
 	$(CC) -c c--.tab.c
