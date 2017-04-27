@@ -1,7 +1,15 @@
 {
   int a;
+  bool c;
+
   bool b;
 
-  printi (88);
-  printb(true);
+  printb (b);
+  a = a + 3333;
+  a = a - 3333;
+  a = a * 3333;
+  a = a / 3333;
+  b = b && true;
+  b = b || true;
+  printi(a);
 }

@@ -14,6 +14,8 @@ enum Stack_Instr_Kind_t{
   STACK_INSTR_SUB,
   STACK_INSTR_TIMES,
   STACK_INSTR_DIV, 
+  STACK_INSTR_AND, 
+  STACK_INSTR_OR, 
   STACK_INSTR_PRINTI,
   STACK_INSTR_PRINTB
 };
@@ -59,6 +61,47 @@ struct Stack_Instr_Add
   enum Stack_Instr_Kind_t kind;
 };
 Stack_Instr_t Stack_Instr_Add_new ();
+
+// sub
+typedef struct Stack_Instr_Sub *Stack_Instr_Sub;
+struct Stack_Instr_Sub
+{
+  enum Stack_Instr_Kind_t kind;
+};
+Stack_Instr_t Stack_Instr_Sub_new ();
+
+// times
+typedef struct Stack_Instr_Times *Stack_Instr_Times;
+struct Stack_Instr_Times
+{
+  enum Stack_Instr_Kind_t kind;
+};
+Stack_Instr_t Stack_Instr_Times_new ();
+
+// div
+typedef struct Stack_Instr_Div *Stack_Instr_Div;
+struct Stack_Instr_Div
+{
+  enum Stack_Instr_Kind_t kind;
+};
+Stack_Instr_t Stack_Instr_Div_new ();
+
+// and
+typedef struct Stack_Instr_And *Stack_Instr_And;
+struct Stack_Instr_And
+{
+  enum Stack_Instr_Kind_t kind;
+};
+Stack_Instr_t Stack_Instr_And_new ();
+
+// or
+typedef struct Stack_Instr_Or *Stack_Instr_Or;
+struct Stack_Instr_Or
+{
+  enum Stack_Instr_Kind_t kind;
+};
+Stack_Instr_t Stack_Instr_Or_new ();
+
 
 // printi
 typedef struct Stack_Instr_Printi *Stack_Instr_Printi;
