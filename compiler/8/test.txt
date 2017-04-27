@@ -1,10 +1,12 @@
 {
   int a;
+  int d;
   bool c;
 
   bool b;
 
   printb (b);
+  a= a + d;
   a = a + 3333;
   a = a - 3333;
   a = a * 3333;

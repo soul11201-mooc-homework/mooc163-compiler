@@ -3,6 +3,7 @@
 #include "stack2x86.h"
 
 FILE *fp = 0;
+static count = 0;
 
 //////////////////////////////////////////
 // decs
@@ -35,28 +36,63 @@ static void genx86_instr (Stack_Instr_t s)
   }
   case STACK_INSTR_LOAD:{
     Stack_Instr_Load p = (Stack_Instr_Load)s;
-    fprintf (fp, "\tmovl\t%s, %%eax", p->x);
+    fprintf (fp, "load_%s_%d:\n", p->x,count++);
+    fprintf (fp, "\tmovl\t%s, %%eax\n", p->x);
+    fprintf (fp, "\tpushl\t%%eax");
     break;
   }
   case STACK_INSTR_STORE:{
     Stack_Instr_Store p = (Stack_Instr_Store)s;
-    fprintf (fp, "store %s", p->x);
+    fprintf (fp, "store_%s_%d:\n", p->x, count++);
+    fprintf (fp, "\tmovl\t%%eax, %s", p->x);
     break;
   }
   case STACK_INSTR_ADD:{
-    fprintf (fp, "add");
+    fprintf (fp, "add_%d:\n", count++);
+    fprintf (fp, "\tpopl\t%%ebx\n");
+    fprintf (fp, "\tpopl\t%%eax\n");
+    fprintf (fp, "\taddl\t%%ebx, %%eax\n");
+    fprintf (fp, "\tpushl\t%%eax");
     break;
   }
   case STACK_INSTR_SUB:{
-    fprintf (fp, "sub");
+    fprintf (fp, "sub_%d:\n", count++);
+    fprintf (fp, "\tpopl\t%%ebx\n");
+    fprintf (fp, "\tpopl\t%%eax\n");
+    fprintf (fp, "\tsubl\t%%ebx , %%eax\n");
+    fprintf (fp, "\tpushl\t%%eax");
     break;
   }
   case STACK_INSTR_TIMES:{
-    fprintf (fp, "times");
+    fprintf (fp, "times_%d:\n",count++);
+    fprintf (fp, "\tpopl\t%%ebx\n");
+    fprintf (fp, "\tpopl\t%%eax\n");
+    fprintf (fp, "\tmul\t%%ebx\n");
+    fprintf (fp, "\tpushl\t%%eax");
     break;
   }
   case STACK_INSTR_DIV:{
-    fprintf (fp, "div");
+    fprintf (fp, "div_%d:\n", count++);
+    fprintf (fp, "\tpopl\t%%ebx\n");
+    fprintf (fp, "\tpopl\t%%eax\n");
+    fprintf (fp, "\tdiv\t%%ebx\n");
+    fprintf (fp, "\tpushl\t%%eax");
+    break;
+  }
+  case STACK_INSTR_AND:{
+    fprintf (fp, "and_%d:\n", count++);
+    fprintf (fp, "\tpopl\t%%ebx\n");
+    fprintf (fp, "\tpopl\t%%eax\n");
+    fprintf (fp, "\tandl\t%%ebx, %%eax\n");
+    fprintf (fp, "\tpushl\t%%eax");
+    break;
+  }
+  case STACK_INSTR_OR:{
+    fprintf (fp, "or_%d:\n", count++);
+    fprintf (fp, "\tpopl\t%%ebx\n");
+    fprintf (fp, "\tpopl\t%%eax\n");
+    fprintf (fp, "\torl\t%%ebx, %%eax\n");
+    fprintf (fp, "\tpushl\t%%eax");
     break;
   }
   case STACK_INSTR_PRINTI:{
