@@ -2,8 +2,8 @@ CC=gcc
 LEX=flex
 YACC=bison
 
-a.out: c--.tab.o lex.yy.o ast.o list.o semant.o stack-machine.o gen-stack.o stack2x86.o main.o 
-	$(CC) lex.yy.o c--.tab.o ast.o list.o semant.o stack-machine.o gen-stack.o stack2x86.o main.o
+a.out: c--.tab.o lex.yy.o ast.o list.o semant.o stack-machine.o gen-stack.o reg-machine.o gen-reg.o stack2x86.o main.o 
+	$(CC) lex.yy.o c--.tab.o ast.o list.o semant.o stack-machine.o gen-stack.o reg-machine.o gen-reg.o stack2x86.o main.o
 
 c--.tab.c: c--.y
 	sh -c "$(YACC) -d c--.y"
@@ -31,6 +31,12 @@ stack-machine.o: stack-machine.c
 
 gen-stack.o: gen-stack.c
 	$(CC) -c gen-stack.c
+
+reg-machine.o: reg-machine.c
+	$(CC) -c reg-machine.c
+
+gen-reg.o: gen-reg.c
+	$(CC) -c gen-reg.c
 
 stack2x86.o: stack2x86.c
 	$(CC) -c stack2x86.c

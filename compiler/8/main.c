@@ -6,6 +6,9 @@
 #include "gen-stack.h"
 #include "stack2x86.h"
 
+#include "reg-machine.h"
+#include "gen-reg.h"
+
 extern void yyparse();
 extern Prog_t tree;
 
@@ -43,8 +46,17 @@ int main (int argc, char **argv)
   //system("cat temp.s");
 
   printf ("executable generation starting...\n");
-  system ("gcc -o stack.exe temp.s");
+  // system ("gcc -o stack.exe temp.s");
   printf ("executable generation finished (writing to file \"stack.exe\")\n");
+
+
+  printf ("reg machine code generation starting...\n");
+  Reg_Prog_t reg = Gen_reg(tree);
+  printf ("reg machine code generation finished\n");
+
+  printf ("reg machine code output starting...\n");
+  Reg_Prog_print(reg);
+  printf ("reg machine code output finished\n");
 
   return 0;
 }
