@@ -58,3 +58,159 @@ http://staff.ustc.edu.cn/~bjhua/mooc/codegen.zip
 栈计算机的数据结构定义模块：stack-machine.h.c。你的任务是根据自己的研究和判断，增加必要的新的指令（结合下面的任务2）；
 从C--编译到栈计算机的代码生成模块：gen-stack.h.c；你的任务是将这部分代码补充完整（TODO的部分）；
 从栈计算机编译到x86汇编代码并生成可执行文件的模块：stack2x86.h.c。（这部分是选做，不做统一要求。）
+
+
+
+## 程序结果
+
+输入程序
+
+```
+{
+  int a;
+  int d;
+  bool c;
+
+  bool b;
+
+  printb (b);
+  a= a + d;
+  a = a + 3333;
+  a = a - 3333;
+  a = a * 3333;
+  a = a / 3333;
+  b = b && true;
+  b = b || true;
+  printi(a);
+}
+
+```
+
+
+输出程序结果：
+
+
+```
+lex and parse starting...
+lex and parse finished
+print the AST starting...
+{
+  int a;
+  int d;
+  bool c;
+  bool b;
+
+  printb(b);
+  a = (a) + (d);
+  a = (a) + (3333);
+  a = (a) - (3333);
+  a = (a) * (3333);
+  a = (a) / (3333);
+  b = (b) && (true);
+  b = (b) || (true);
+  printi(a);
+}
+print the AST finished
+semantic analysis starting...
+printb(b);
+a = (a) + (d);
+a = (a) + (3333);
+a = (a) - (3333);
+a = (a) * (3333);
+a = (a) / (3333);
+b = (b) && (true);
+b = (b) || (true);
+printi(a);
+semantic analysis finished
+stack machine code generation starting...
+stack machine code generation finished
+stack machine code output starting...
+{
+  .int a
+  .int d
+  .int c
+  .int b
+
+  load b
+  printb
+  load a
+  load d
+  add
+  store a
+  load a
+  push 3333
+  add
+  store a
+  load a
+  push 3333
+  sub
+  store a
+  load a
+  push 3333
+  times
+  store a
+  load a
+  push 3333
+  div
+  store a
+  load b
+  push 1
+  and
+  store b
+  load b
+  push 1
+  or
+  store b
+  load a
+  printi
+}
+stack machine code output finished
+x86 code generation starting...
+x86 code generation finished (writing to file "temp.s")
+executable generation starting...
+executable generation finished (writing to file "stack.exe")
+reg machine code generation starting...
+reg machine code generation finished
+reg machine code output starting...
+{
+  .int a
+  .int d
+  .int c
+  .int b
+
+  mov b,r1
+  printb r1
+  mov a,r2
+  mov d,r3
+  add r2, r3, r4
+  mov r4 a
+  mov a,r5
+  movn 3333, r6
+  add r5, r6, r7
+  mov r7 a
+  mov a,r8
+  movn 3333, r9
+  sub r8, r9, r10
+  mov r10 a
+  mov a,r11
+  movn 3333, r12
+  times r11, r12, r13
+  mov r13 a
+  mov a,r14
+  movn 3333, r15
+  div r14, r15, r16
+  mov r16 a
+  mov b,r17
+  movn 1, r18
+  and r17, r18, r19
+  mov r19 b
+  mov b,r20
+  movn 1, r21
+  or r20, r21, r22
+  mov r22 b
+  mov a,r23
+  printi r23
+}
+reg machine code output finished
+```
+
