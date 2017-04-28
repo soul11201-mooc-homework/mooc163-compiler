@@ -92,53 +92,58 @@ struct Exp_Add
 Exp_t Exp_Add_new ();
 
 // -
-typedef struct Exp_Sub *Exp_Sub;
-struct Exp_Sub
-{
-  enum Exp_Kind_t kind;
-  Exp_t left;
-  Exp_t right;
-};
+// typedef struct Exp_Sub *Exp_Sub;
+// struct Exp_Sub
+// {
+//   enum Exp_Kind_t kind;
+//   Exp_t left;
+//   Exp_t right;
+// };
+typedef Exp_Add Exp_Sub;
 Exp_t Exp_Sub_new ();
 
 // *
-typedef struct Exp_Times *Exp_Times;
-struct Exp_Times
-{
-  enum Exp_Kind_t kind;
-  Exp_t left;
-  Exp_t right;
-};
+// typedef struct Exp_Times *Exp_Times;
+// struct Exp_Times
+// {
+//   enum Exp_Kind_t kind;
+//   Exp_t left;
+//   Exp_t right;
+// };
+typedef Exp_Add Exp_Times;
 Exp_t Exp_Times_new ();
 
 // /
-typedef struct Exp_Divide *Exp_Divide;
-struct Exp_Divide
-{
-  enum Exp_Kind_t kind;
-  Exp_t left;
-  Exp_t right;
-};
+// typedef struct Exp_Divide *Exp_Divide;
+// struct Exp_Divide
+// {
+//   enum Exp_Kind_t kind;
+//   Exp_t left;
+//   Exp_t right;
+// };
+typedef Exp_Add Exp_Divide;
 Exp_t Exp_Divide_new ();
 
 // &&
-typedef struct Exp_And *Exp_And;
-struct Exp_And
-{
-  enum Exp_Kind_t kind;
-  Exp_t left;
-  Exp_t right;
-};
+// typedef struct Exp_And *Exp_And;
+// struct Exp_And
+// {
+//   enum Exp_Kind_t kind;
+//   Exp_t left;
+//   Exp_t right;
+// };
+typedef Exp_Add Exp_And;
 Exp_t Exp_And_new ();
 
 // ||
-typedef struct Exp_Or *Exp_Or;
-struct Exp_Or
-{
-  enum Exp_Kind_t kind;
-  Exp_t left;
-  Exp_t right;
-};
+// typedef struct Exp_Or *Exp_Or;
+// struct Exp_Or
+// {
+//   enum Exp_Kind_t kind;
+//   Exp_t left;
+//   Exp_t right;
+// };
+typedef Exp_Add Exp_Or;
 Exp_t Exp_Or_new ();
 
 /////////////////////////////////////

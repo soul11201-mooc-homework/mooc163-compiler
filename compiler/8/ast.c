@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "ast.h"
 
+
 ////////////////////////////////////////
 void Type_print (Type_t t)
 {
