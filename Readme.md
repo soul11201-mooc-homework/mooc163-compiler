@@ -1,6 +1,7 @@
+[![Build Status](https://travis-ci.org/noname007/mooc163-compiler.svg?branch=master)](https://travis-ci.org/noname007/mooc163-compiler)
 
-## compiler
 
+## compiler 作业
 [此目录](https://github.com/noname007/mooc163-compiler/tree/master/compiler)放的[ 编译原理课程](http://mooc.study.163.com/course/USTC-1000002001#/info)作业
 
 
