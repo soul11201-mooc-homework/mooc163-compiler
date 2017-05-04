@@ -3,5 +3,6 @@ compiler:
 - clang
 - gcc
 script:
-- cd compiler/7 && make && ./a.out < test.txt
-- cd compiler/8 && make && ./a.out < test.txt && ./stack.exe
+- p=`pwd`
+- cd $p/compiler/7 && make && ./a.out < test.txt
+- cd $p/compiler/8 && make && ./a.out < test.txt && ./stack.exe
