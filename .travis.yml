@@ -1,0 +1,7 @@
+language: c
+compiler:
+- clang
+- gcc
+script:
+- cd compiler/7 && make && ./a.out < test.txt
+- cd compiler/8 && make && ./a.out < test.txt && ./stack.exe
