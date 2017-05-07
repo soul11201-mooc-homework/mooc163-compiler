@@ -206,7 +206,7 @@ void Reg_Prog_print (Reg_Prog_t prog)
     ids = ids->next;
   }
 
-  printf ("\n");
+  printf ("}\n");
 
   List_t instrs = prog->instrs;
   while (instrs){
