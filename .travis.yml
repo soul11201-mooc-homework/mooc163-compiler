@@ -4,8 +4,9 @@ compiler:
 - gcc
 script:
 - p=`pwd`
+- make -v
 - echo $p
 - cd $p/compiler/7 && make && ./a.out < test.txt
 #- cd $p/compiler/8 && make && ./a.out < test.txt && ./stack.exe
 - cd $p/compiler/8 && make && ./a.out < test.txt
-- cd $p/compiler/9 && make -f me.mk run && ./a.exe < test.txt
+- cd $pompiler/9 && make -f me.mk run && ./a.exe < test.txt
