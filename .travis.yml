@@ -6,4 +6,6 @@ script:
 - p=`pwd`
 - echo $p
 - cd $p/compiler/7 && make && ./a.out < test.txt
-- cd $p/compiler/8 && make && ./a.out < test.txt && ./stack.exe
+#- cd $p/compiler/8 && make && ./a.out < test.txt && ./stack.exe
+- cd $p/compiler/8 && make && ./a.out < test.txt
+- cd $p/compiler/9 && make && ./a.out < test.txt
