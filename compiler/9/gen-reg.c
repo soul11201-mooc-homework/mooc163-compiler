@@ -14,7 +14,7 @@ static void emit (Reg_Instr_t instr)
 }
 static Reg_t fresh()
 {
-    static count = 0;
+    static Reg_t count = 0;
     return ++ count;
 }
 

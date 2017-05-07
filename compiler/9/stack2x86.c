@@ -3,7 +3,7 @@
 #include "stack2x86.h"
 
 FILE *fp = 0;
-static count = 0;
+static int count = 0;
 
 //////////////////////////////////////////
 // decs
