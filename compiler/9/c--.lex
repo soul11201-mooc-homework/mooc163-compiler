@@ -20,6 +20,8 @@ IDS ({ALPHA}({ALPHA}|{DIGIT})*)
 %%
 " "    {continue;}
 "\n"   {continue;}
+"\r\n"   {continue;}
+"\t"   {continue;}
 "("    {return '(';}
 ")"    {return ')';}
 "{"    {return '{';}
