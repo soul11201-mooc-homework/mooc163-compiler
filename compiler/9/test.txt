@@ -14,4 +14,17 @@
   b = b && true;
   b = b || true;
   printi(a);
+
+  if ( a+d)
+  {
+    a = a - 1;
+  }
+  else{
+    a = a+1;
+  }
+  
+  while(a)
+  {
+    a = a + 1;
+  }
 }

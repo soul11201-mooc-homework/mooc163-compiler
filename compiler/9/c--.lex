@@ -30,7 +30,6 @@ IDS ({ALPHA}({ALPHA}|{DIGIT})*)
 "*"    {return '*';}
 "/"    {return '/';}
 "="    {return '=';}
-","    {return ',';}
 "&&"   {return AND;}
 "||"   {return OR;}
 "int"  {return INT;}
@@ -40,6 +39,7 @@ IDS ({ALPHA}({ALPHA}|{DIGIT})*)
 "printi" {return PRINTI;}
 "printb" {return PRINTB;}
 "if" 	{return IF;}
+"else" {return ELSE;}
 "while" {return WHILE;}
 {NUM}  {yylval.intval = atoi(yytext); return INTNUM;}
 {IDS}  {yylval.strval = clone(yytext); return ID;}
