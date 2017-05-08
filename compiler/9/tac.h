@@ -62,10 +62,10 @@ struct IR_Tac_Prog_instr_t
   List_t ids;
 
   // tac instrctions
-  List_t instrs;
+  List_t instrctions;
 };
 
-IR_Tac_Prog_instr_t IR_Tac_Prog_instr_new(List_t , List_t)
+IR_Tac_Prog_instr_t IR_Tac_Prog_instr_new(List_t , List_t);
 void IR_Tac_Prog_instr_print(IR_Tac_Prog_instr_t);
 
 #endif

@@ -5,11 +5,12 @@
 	> Created Time: 2017年05月07日 星期日 15时29分00秒
  ************************************************************************/
 
-#ifndef _GEN-TAC_H
-#define _GEN-TAC_H
+#ifndef _GEN_TAC_H
+#define _GEN_TAC_H
 
 #include "ast.h"
 #include "tac.h"
+#include "list.h"
 
 IR_Tac_Prog_instr_t gen_tac(Prog_t);
 

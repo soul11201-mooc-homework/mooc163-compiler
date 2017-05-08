@@ -26,6 +26,47 @@ MACRO_TAC_INSTR_NEW(IR_Tac_Div_instr_t, IR_Tac_Div_instr_new, IR_TAC_KIND_DIV)
 MACRO_TAC_INSTR_NEW(IR_Tac_And_instr_t, IR_Tac_And_instr_new, IR_TAC_KIND_AND)
 MACRO_TAC_INSTR_NEW(IR_Tac_Or_instr_t, IR_Tac_Or_instr_new, IR_TAC_KIND_OR)
 
+
+IR_Tac_Prog_instr_t IR_Tac_Prog_instr_new(List_t decs_ids, List_t instrctions)
+{
+	IR_Tac_Prog_instr_t p = malloc(sizeof(*p));
+	p->ids = decs_ids;
+	p->instrctions = instrctions;
+	return p;
+}
+
+void IR_Tac_instr_print(IR_Tac_instr_t s)
+{
+	switch(s->kind){
+
+	}
+}
+
+void IR_Tac_Prog_instr_print(IR_Tac_Prog_instr_t tac_prog)
+{
+	List_t ids = tac_prog->ids;
+	printf("{\n");
+	while(ids)
+	{
+		char * id = (char*) ids->data;
+		printf(" .int %s\n", id);
+		ids = ids->next;
+	}
+	printf ("\n");
+
+	List_t instrs = tac_prog->instrctions;
+
+	while (instrs){
+		IR_Tac_instr_t s = (IR_Tac_instr_t)instrs->data;
+		printf ("  ");
+		IR_Tac_instr_print (s);
+		printf ("\n");
+		instrs = instrs->next;
+	}
+	printf ("}\n");
+	return;
+
+}
 //IR_Tac_Add_instr_t IR_Tac_Add_instr_new(char * x, char *y, char *z)
 //{
 //    IR_Tac_Add_instr_t p = malloc(sizeof(*p));

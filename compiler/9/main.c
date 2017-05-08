@@ -8,6 +8,7 @@
 
 #include "reg-machine.h"
 #include "gen-reg.h"
+#include "gen-tac.h"
 
 extern void yyparse();
 extern Prog_t tree;
@@ -57,6 +58,15 @@ int main (int argc, char **argv)
   printf ("reg machine code output starting...\n");
   Reg_Prog_print(reg);
   printf ("reg machine code output finished\n");
+
+
+  printf ("tac generation starting...\n");
+  IR_Tac_Prog_instr_t tac = gen_tac(tree);
+  printf ("tac generation finished\n");
+
+  printf ("tac output starting...\n");
+  IR_Tac_Prog_instr_print(tac);
+  printf ("tac output finished\n");
 
   return 0;
 }
