@@ -18,12 +18,14 @@
   if ( a+d)
   {
     a = a - 1;
+    b = true;
+    d = d  - 1;
   }
   else{
     a = a+1;
   }
-  
-  while(a)
+
+  while(b)
   {
     a = a + 1;
   }
