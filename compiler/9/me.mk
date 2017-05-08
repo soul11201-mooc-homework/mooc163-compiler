@@ -10,14 +10,14 @@ run: pre obj exe
 .ONESHELL:
 obj:
 	@c_files="$(shell find . -name '*.c')" && \
-	echo gcc -c "$${c_files}" &&\
-	gcc  -c $${c_files}
+	echo gcc -g -O2  -c "$${c_files}" &&\
+	gcc -g -O2   -c $${c_files}
 
 .ONESHELL:
 exe:
 	@c_headers="$(shell find . -name '*.o')" &&\
-	echo gcc $${c_headers} -o  a.exe &&\
-	gcc $${c_headers} -o a.exe 
+	echo gcc -g -O2  $${c_headers} -o  a.exe &&\
+	gcc -g -O2 $${c_headers} -o a.exe 
 
 
 clea:
