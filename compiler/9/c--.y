@@ -26,7 +26,8 @@
 // terminals
 %token <intval> INTNUM
 %token <strval> ID
-%token AND BOOL FALSE INT OR 
+%token AND BOOL FALSE INT OR
+IF WHILE
 PRINTB PRINTI TRUE
 
 // nonterminals
@@ -67,6 +68,8 @@ stms: stm stms {$$ = List_new ($1, $2);}
 stm: ID '=' exp ';'      {$$ = Stm_Assign_new ($1, $3);}
 | PRINTI '(' exp ')' ';' {$$ = Stm_Printi_new ($3);}
 | PRINTB '(' exp ')' ';' {$$ = Stm_Printb_new ($3);}
+| IF '(' exp ',' stms ',' stms ')' { $$ = Stm_If_new($3,$5,$7); }
+| WHILE '(' exp ',' stms ')' { $$ = Stm_While_new($3,$5); }
 ;
 
 exp: INTNUM    {$$ = Exp_Int_new ($1);} 

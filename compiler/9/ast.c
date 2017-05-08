@@ -240,6 +240,68 @@ void Stm_print (Stm_t s)
     printf (");");
     break;
   }
+  case STM_WHILE:{
+
+	  Stm_While p = (Stm_While)s;
+
+	  printf("while(");
+
+	  Exp_print(p->exp);
+
+	  printf("){\n");
+
+	  List_t truepart = p->truepart;
+	  while(truepart)
+	  {
+		  Stm_t s = (Stm_t)truepart->data;
+
+		  printf("  ");
+		  Stm_print(s);
+		  printf("\n");
+
+		  truepart = truepart->next;
+	  }
+
+	  printf("  }\n");
+	  break;
+  }
+  case STM_IF:{
+	  Stm_If p = (Stm_If) s;
+
+	  printf("if(");
+
+	  Exp_print(p->exp);
+
+	  printf("){\n");
+
+	  List_t ifpart = p->ifpart;
+	  while(ifpart)
+	  {
+		  Stm_t s = (Stm_t)ifpart->data;
+		  printf("  ");
+		  Stm_print(s);
+		  printf("\n");
+
+		  ifpart = ifpart->next;
+	  }
+
+	  printf("  }else{\n");
+
+	  List_t elsepart = p->elsepart;
+	  while(elsepart)
+	  {
+		  Stm_t s = (Stm_t)elsepart->data;
+
+		  printf("  ");
+		  Stm_print(s);
+		  printf("\n");
+
+		  elsepart = elsepart->next;
+	  }
+
+	  printf("  }\n");
+	  break;
+  }
   default:
     break;
   }
@@ -273,6 +335,26 @@ Stm_t Stm_Printb_new (Exp_t exp)
   p->exp = exp;
   return (Stm_t)p;
 }
+
+Stm_t Stm_If_new(Exp_t condition, List_t ifpart, List_t elsepart)
+{
+  Stm_If  p = malloc(sizeof(*p));
+  p->kind = STM_IF;
+  p->exp = condition;
+  p->ifpart = ifpart;
+  p->elsepart = elsepart;
+  return (Stm_t)p;
+}
+
+Stm_t Stm_While_new(Exp_t condition, List_t truepart)
+{
+	Stm_While p = malloc(sizeof(*p));
+	p->kind = STM_WHILE;
+	p->exp = condition;
+	p->truepart = truepart;
+	return (Stm_t)p;
+}
+
 
 ///////////////////////////////////////
 // prog

@@ -152,7 +152,9 @@ Exp_t Exp_Or_new ();
 enum Stm_Kind_t{
   STM_ASSIGN,
   STM_PRINTI,
-  STM_PRINTB
+  STM_PRINTB,
+  STM_IF,
+  STM_WHILE
 };
 
 typedef struct Stm_t *Stm_t;
@@ -189,6 +191,32 @@ struct Stm_Printb
   Exp_t exp;
 };
 Stm_t Stm_Printb_new (Exp_t);
+
+
+//----------------if and while----------------//
+
+typedef struct Stm_If *Stm_If;
+struct Stm_If
+{
+  enum Stm_Kind_t kind;
+  Exp_t exp;
+  List_t ifpart;
+  List_t elsepart;
+};
+
+Stm_t Stm_If_new(Exp_t condition, List_t ifpart, List_t elsepart);
+
+typedef struct Stm_While *Stm_While;
+struct Stm_While
+{
+  enum Stm_Kind_t kind;
+  Exp_t exp;
+  List_t truepart;
+};
+Stm_t Stm_While_new(Exp_t condition, List_t truepart);
+
+//----------------if and while----------------//
+
 
 /////////////////////////////////////
 // prog

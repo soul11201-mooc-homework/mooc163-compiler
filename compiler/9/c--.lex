@@ -30,6 +30,7 @@ IDS ({ALPHA}({ALPHA}|{DIGIT})*)
 "*"    {return '*';}
 "/"    {return '/';}
 "="    {return '=';}
+","    {return ',';}
 "&&"   {return AND;}
 "||"   {return OR;}
 "int"  {return INT;}
@@ -38,6 +39,8 @@ IDS ({ALPHA}({ALPHA}|{DIGIT})*)
 "false" {return FALSE;}
 "printi" {return PRINTI;}
 "printb" {return PRINTB;}
+"if" 	{return IF;}
+"while" {return WHILE;}
 {NUM}  {yylval.intval = atoi(yytext); return INTNUM;}
 {IDS}  {yylval.strval = clone(yytext); return ID;}
 .      {fprintf (stderr, "illegal char: %s\n", yytext); exit (0);}
