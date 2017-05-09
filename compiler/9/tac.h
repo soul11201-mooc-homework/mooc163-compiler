@@ -11,6 +11,7 @@
 #include<stdlib.h>
 #include "list.h"
 
+
 typedef enum {
     IR_TAC_KIND_CONST,
     IR_TAC_KIND_MOVE,
@@ -20,39 +21,53 @@ typedef enum {
     IR_TAC_KIND_DIV,
     IR_TAC_KIND_OR,
     IR_TAC_KIND_AND,
+
 } IR_Tac_Kind_t;
 
-typedef struct IR_Tac_instr_t* IR_Tac_instr_t;
+//typedef struct IR_Tac_instr_t* IR_Tac_instr_t;
 
-struct IR_Tac_instr_t{
-    IR_Tac_Kind_t kind;
-};
+//struct IR_Tac_instr_t{
+//    IR_Tac_Kind_t kind;
+//};
+
+typedef struct IR_Tac_Add_instr_t* IR_Tac_instr_t;
 
 typedef struct IR_Tac_Add_instr_t* IR_Tac_Add_instr_t;
 
 struct IR_Tac_Add_instr_t{
   IR_Tac_Kind_t kind;
-  char *x;
-  char *y;
-  char *z;
+  int x;
+  int y;
+  int z;
 };
 
-IR_Tac_Add_instr_t IR_Tac_Add_instr_new(char *, char *, char *);
+//#define tac_argument_type char *, char *, char *
+
+#define tac_argument_type int, int, int
+
+IR_Tac_instr_t IR_Tac_Add_instr_new(tac_argument_type);
+
+typedef IR_Tac_Add_instr_t IR_Tac_Move_instr_t;
+IR_Tac_instr_t IR_Tac_Move_instr_new(tac_argument_type);
+
+typedef IR_Tac_Add_instr_t IR_Tac_Const_instr_t;
+IR_Tac_instr_t IR_Tac_Const_instr_new(tac_argument_type);
 
 typedef IR_Tac_Add_instr_t IR_Tac_Minus_instr_t;
-IR_Tac_Add_instr_t IR_Tac_Minus_instr_new(char *, char *, char *);
+IR_Tac_instr_t IR_Tac_Minus_instr_new(tac_argument_type);
 
 typedef IR_Tac_Add_instr_t IR_Tac_Mul_instr_t;
-IR_Tac_Add_instr_t IR_Tac_Mul_instr_new(char *, char *, char *);
+IR_Tac_instr_t IR_Tac_Mul_instr_new(tac_argument_type);
 
 typedef IR_Tac_Add_instr_t IR_Tac_Div_instr_t;
-IR_Tac_Add_instr_t IR_Tac_Div_instr_new(char *, char *, char *);
+IR_Tac_instr_t IR_Tac_Div_instr_new(tac_argument_type);
 
 typedef IR_Tac_Add_instr_t IR_Tac_Or_instr_t;
-IR_Tac_Add_instr_t IR_Tac_Or_instr_new(char *, char *, char *);
+IR_Tac_instr_t IR_Tac_Or_instr_new(tac_argument_type);
 
 typedef IR_Tac_Add_instr_t IR_Tac_And_instr_t;
-IR_Tac_Add_instr_t IR_Tac_And_instr_new(char *, char *, char *);
+IR_Tac_instr_t IR_Tac_And_instr_new(tac_argument_type);
+
 
 
 typedef struct IR_Tac_Prog_instr_t *IR_Tac_Prog_instr_t;
